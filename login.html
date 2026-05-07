@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Typing Matrices</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Login Specific Styles */
+    .login-section {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    
+    .login-card {
+      background: var(--bg-secondary);
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .login-card h2 { margin-bottom: 5px; }
+    .login-card p { color: var(--text-small); margin-bottom: 30px; }
+    
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      font-size: 16px;
+      transition: var(--transition);
+      outline: none;
+    }
+    
+    .form-control:focus {
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .toggle-pwd {
+      position: absolute;
+      right: 15px;
+      top: 42px;
+      color: var(--text-small);
+      cursor: pointer;
+    }
+    
+    .toggle-pwd:hover { color: var(--text-primary); }
+
+    .btn-login { width: 100%; margin-top: 10px; }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 30px 0;
+      color: var(--text-small);
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .divider:not(:empty)::before { margin-right: .25em; }
+    .divider:not(:empty)::after { margin-left: .25em; }
+
+    .btn-google {
+      width: 100%;
+      background: white;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .btn-google img { width: 20px; }
+    .btn-google:hover { background: #f1f1f1; transform: translateY(-2px); }
+
+    .signup-link {
+      margin-top: 30px;
+      display: block;
+      color: var(--text-secondary);
+    }
+    .signup-link a { color: var(--accent); font-weight: 500; }
+    .signup-link a:hover { text-decoration: underline; }
+
+    .form-error {
+      color: #f87171;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+      text-align: left;
+    }
+
+    .form-success-login {
+      display: none;
+      background: rgba(74, 222, 128, 0.2);
+      color: #4ade80;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="brand-name">Typing Matrices</div>
+    <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="getstarted.html">Get Started</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="login.html" class="active">Login</a>
+    </nav>
+  </header>
+
+  <!-- Login Section -->
+  <section class="login-section">
+    <div class="login-card animate-fade">
+      <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 10px;">Login to <span style="color: #4DA3FF;">Typing Matrices</span></h2>
+      <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 30px;">Welcome back — keep improving your WPM</p>
+            <div class="form-success-login" id="login-success">
+        Login successful! Redirecting...
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username" style="font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">Email</label>
+          <input type="email" id="username" class="form-control" placeholder="Enter your email" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);">
+          <div class="form-error" id="error-user">Please enter a valid email address</div>
+        </div>
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <label for="password" style="font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0;">Password</label>
+            <a href="#" style="font-size: 12px; color: #4DA3FF; text-decoration: none;">Forgot Password?</a>
+          </div>
+          <input type="password" id="password" class="form-control" placeholder="Enter your password" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);">
+          <i class="fas fa-eye toggle-pwd" id="toggle-pwd" style="top: 38px;"></i>
+          <div class="form-error" id="error-pwd">Please enter your password</div>
+        </div>
+        
+        <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+          <input type="checkbox" id="remember" style="width: 16px; height: 16px;">
+          <label for="remember" style="margin-bottom: 0; font-size: 14px; font-weight: 400; color: var(--text-secondary);">Remember Me</label>
+        </div>
+
+        <button type="submit" class="btn btn-login" id="login-btn" style="background: #4DA3FF; color: #0F2A44; font-weight: 600; padding: 15px; border-radius: 10px; font-size: 16px; letter-spacing: 1px; text-transform: uppercase; margin-top: 5px;"><i class="fas fa-sign-in-alt"></i> SIGN IN</button>
+      </form>
+
+      <div class="signup-link" style="margin-top: 30px; font-size: 14px;">
+        Don't have an account? <a href="#" style="color: #4DA3FF; text-decoration: none; font-weight: 600;">Sign Up</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h4>Typing Matrices &copy; 2026</h4>
+          <p>Improve your typing speed & accuracy</p>
+          <p>Practice daily and increase your WPM!</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="getstarted.html">Get Started</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Typing Tools</h4>
+          <ul>
+            <li><a href="#">Speed Calculator</a></li>
+            <li><a href="#">Accuracy Checker</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <small>Typing Matrices. Designed for Typists.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

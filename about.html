@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Typing Matrices</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* About Page Specific Styles */
+
+    .hero {
+      position: relative;
+      height: 40vh;
+      min-height: 300px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .hero-slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .hero-slider img.active {
+      opacity: 0.4;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(15, 42, 68, 0.5), var(--bg-primary));
+      z-index: -1;
+    }
+
+    .hero-content {
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    /* Common */
+    .section {
+      padding: 40px 0;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    /* Mission Section */
+    .mission-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .mission-card {
+      text-align: center;
+      padding: 40px 30px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .mission-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .mission-card i {
+      font-size: 32px;
+      color: #4DA3FF;
+      margin-bottom: 20px;
+    }
+
+    .mission-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .mission-card p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Offer Section */
+    .split-grid-offer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      margin-bottom: 40px;
+    }
+
+    .offer-left {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    .offer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    .offer-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .offer-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(77, 163, 255, 0.1);
+      border: 1px solid rgba(77, 163, 255, 0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4DA3FF;
+    }
+
+    .offer-text {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .offer-right {
+      padding-top: 10px;
+    }
+
+    .stats-grid-small {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .stat-card-small {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card-small:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .stat-card-small h4 {
+      font-family: 'Playfair Display', serif;
+      color: #4DA3FF;
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
+
+    .stat-card-small p {
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .stats-grid-large {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .stat-card-large {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card-large:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-card-large h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+
+    .stat-card-large p {
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+
+    /* Vision Split */
+    .vision-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .vision-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .vision-list li {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+
+    .vision-list li i {
+      color: #4DA3FF;
+      font-size: 12px;
+    }
+
+    .vision-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .vision-right img {
+      width: 80%;
+      max-width: 450px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Restored Flip Cards */
+    .why-choose-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      max-width: 900px;
+      margin: 30px auto 0;
+    }
+
+    @media (max-width: 768px) {
+      .why-choose-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .flip-card {
+      background-color: transparent;
+      height: 200px;
+      perspective: 1000px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .flip-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .flip-card-front {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .flip-card-front h3 {
+      color: var(--accent);
+      margin: 0;
+    }
+
+    .flip-card-back {
+      background: var(--accent);
+      color: var(--bg-primary);
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-back p {
+      color: var(--bg-primary);
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* Meet The Team */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+      justify-items: center;
+    }
+
+    .team-card {
+      text-align: center;
+      max-width: 300px;
+      width: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 30px;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .team-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      background: #ccc;
+      border: 3px solid var(--accent);
+      overflow: hidden;
+    }
+
+    .team-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .team-role {
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+
+      .mission-cards-grid,
+      .split-grid-offer,
+      .stats-grid-small,
+      .stats-grid-large,
+      .vision-split {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="brand-name">Typing Matrices</div>
+    <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="getstarted.html">Get Started</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Section A: Hero Slider -->
+  <section class="hero">
+    <div class="hero-slider" id="hero-slider">
+      <!-- Images injected by JS -->
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content animate-fade">
+      <h1 class="section-title">About Us</h1>
+      <p class="section-subtitle">We're on a mission to make typing mastery accessible, engaging, and free for everyone
+        - forever.</p>
+    </div>
+  </section>
+
+  <!-- Section B: What We Offer & What We Do -->
+  <section class="section">
+    <div class="container">
+      <div class="split-grid-offer">
+        <div class="offer-left animate-fade">
+          <h3
+            style="color: #4DA3FF; text-transform: uppercase; font-size: 16px; letter-spacing: 1px; margin-bottom: 30px;">
+            WHAT WE OFFER</h3>
+
+          <div class="offer-list">
+            <div class="offer-item">
+              <div class="offer-icon"><i class="fas fa-keyboard"></i></div>
+              <div class="offer-text">Structured 60-level typing curriculum from beginner to expert</div>
+            </div>
+            <div class="offer-item">
+              <div class="offer-icon"><i class="fas fa-chart-bar"></i></div>
+              <div class="offer-text">Real-time WPM, accuracy, and keystroke analytics</div>
+            </div>
+            <div class="offer-item">
+              <div class="offer-icon"><i class="far fa-clock"></i></div>
+              <div class="offer-text">Timed challenges — 30s easy, 45s hard levels</div>
+            </div>
+            <div class="offer-item">
+              <div class="offer-icon"><i class="fas fa-medal"></i></div>
+              <div class="offer-text">3-star rating system that rewards precision and speed</div>
+            </div>
+            <div class="offer-item">
+              <div class="offer-icon"><i class="fas fa-user-friends"></i></div>
+              <div class="offer-text">Designed for all skill levels — students to professionals</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="offer-right animate-fade" style="animation-delay: 0.2s">
+          <h2 class="section-title"
+            style="color: #4DA3FF; font-family: 'Playfair Display', serif; font-size: 40px; margin-bottom: 20px;">What
+            We Do</h2>
+          <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 20px;">Typing
+            Matrices is a speed typing test platform that helps users measure and improve their typing speed, accuracy,
+            and overall performance through structured levels and real-time analytics.</p>
+          <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 40px;">From home row
+            basics to advanced paragraph challenges, our 60-level system adapts to your skill level and pushes you to
+            constantly improve and grow.</p>
+
+          <div class="stats-grid-small">
+            <div class="stat-card-small">
+              <h4>40+</h4>
+              <p>Avg WPM Gain</p>
+            </div>
+            <div class="stat-card-small">
+              <h4>95%</h4>
+              <p>User Satisfaction</p>
+            </div>
+            <div class="stat-card-small">
+              <h4>60</h4>
+              <p>Unique Levels</p>
+            </div>
+            <div class="stat-card-small">
+              <h4>&infin;</h4>
+              <p>Practice Texts</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid-large animate-fade" style="animation-delay: 0.4s" style="margin-top: 40px;">
+        <div class="stat-card-large">
+          <h3 style="color: #4DA3FF;">10K+</h3>
+          <p>Users</p>
+        </div>
+        <div class="stat-card-large">
+          <h3 style="color: #4DA3FF;">60</h3>
+          <p>Levels</p>
+        </div>
+        <div class="stat-card-large">
+          <h3 style="color: #4DA3FF;">Real-Time</h3>
+          <p>Tracking</p>
+        </div>
+        <div class="stat-card-large">
+          <h3 style="color: #4DA3FF;">Free</h3>
+          <p>Forever</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section C: Our Mission -->
+  <section class="section container">
+    <div class="text-center">
+      <h2 class="section-title">Our <span style="color: #4DA3FF;">Mission</span></h2>
+      <p class="section-subtitle" style="max-width: 800px; margin: 0 auto 50px;">To create the most engaging and
+        effective typing practice platform — powered<br>by real-time analytics, beautiful design, and a love for
+        keyboards.</p>
+    </div>
+    <div class="mission-cards-grid">
+      <div class="mission-card animate-fade">
+        <i class="fas fa-bolt"></i>
+        <h3>Speed</h3>
+        <p>Build lightning-fast fingers through structured practice</p>
+      </div>
+      <div class="mission-card animate-fade" style="animation-delay: 0.1s">
+        <i class="fas fa-bullseye"></i>
+        <h3>Precision</h3>
+        <p>Every keystroke counts toward your accuracy mastery</p>
+      </div>
+      <div class="mission-card animate-fade" style="animation-delay: 0.2s">
+        <i class="fas fa-chart-bar"></i>
+        <h3>Growth</h3>
+        <p>Track your progress with real-time performance data</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section D: Our Vision -->
+  <section class="section container">
+    <div class="vision-split animate-fade">
+      <div class="vision-left">
+        <h2 class="section-title">Our Vision</h2>
+        <ul class="vision-list">
+          <li><i class="fas fa-circle"></i> Make typing skills universally accessible to everyone</li>
+          <li><i class="fas fa-circle"></i> Gamify the learning experience with levels & scores</li>
+          <li><i class="fas fa-circle"></i> Build a global community of fast, accurate typists</li>
+          <li><i class="fas fa-circle"></i> Integrate AI-powered personalized practice paths</li>
+        </ul>
+      </div>
+      <div class="vision-right">
+        <img
+          src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXeO6_JG7r4Je6jAgY_1c0y9xMbdiqrL6UCYA5Qfl1U8qA9s3HRuBvSZafXs1YO7G7yuvQbq9SvVC4GGcx9XCQ1LvmYhzbOK7ILr8xxFIQnqsr_AdIIHypzNdFCymMZoHCDkPqbT?key=T81IwgyAE_p1kGFJrtbhyxpU"
+          alt="Typing Vision">
+      </div>
+    </div>
+  </section>
+
+  <!-- Section E: Why Choose Typing Matrices -->
+  <section class="section container">
+    <h2 class="text-center section-title">Why Choose Typing Matrices?</h2>
+    <p class="text-center section-subtitle" style="margin-bottom: 30px;">Click the cards below to reveal!</p>
+    <div class="why-choose-grid">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h3>Free Access</h3>
+          </div>
+          <div class="flip-card-back">
+            <p>We will never charge you for basic typing practice.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h3>Real-Time Analytics</h3>
+          </div>
+          <div class="flip-card-back">
+            <p>See your speed and errors immediately as you type.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h3>For All Levels</h3>
+          </div>
+          <div class="flip-card-back">
+            <p>Perfect whether you type 20 WPM or 120 WPM.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h3>Clean Design</h3>
+          </div>
+          <div class="flip-card-back">
+            <p>No ads, no popups. Just you and the keyboard.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section F: Meet The Team -->
+  <section class="section container">
+    <h2 class="text-center section-title">Meet The Team</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-img">
+          <img src="jass.jpeg" alt="Jasmeen Kaur">
+        </div>
+        <h3>Jasmeen Kaur</h3>
+        <div class="team-role">Co-Founder / Developer</div>
+        <p>Passionate about building fast, accessible web experiences. Jasmeen leads the technical development of the
+          platform.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-img">
+          <img src="khushi .jpeg" alt="Khushi">
+        </div>
+        <h3>Khushi</h3>
+        <div class="team-role">Co-Founder / Designer</div>
+        <p>Focused on intuitive user experiences. Khushi crafts the beautiful, distraction-free interface of Typing
+          Matrices.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h4>Typing Matrices &copy; 2026</h4>
+          <p>Improve your typing speed & accuracy</p>
+          <p>Practice daily and increase your WPM!</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="getstarted.html">Get Started</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Typing Tools</h4>
+          <ul>
+            <li><a href="#">Speed Calculator</a></li>
+            <li><a href="#">Accuracy Checker</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <small>Typing Matrices. Designed for Typists.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Include main.js for Mobile Menu & Slider -->
+  <script src="js/main.js"></script>
+</body>
+
+</html>

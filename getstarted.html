@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Started | Typing Matrices</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Get Started Specific Styles */
+    
+    .levels-header {
+      text-align: left;
+      padding: 60px 0px 40px;
+    }
+
+    .levels-header h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      letter-spacing: -0.5px;
+    }
+
+    .levels-header p {
+      color: var(--text-secondary);
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .global-progress-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .global-stat {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+    }
+
+    .stat-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .global-progress-bar-container {
+      flex-grow: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-left: 20px;
+    }
+
+    .global-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: #4DA3FF;
+    }
+
+    /* Category Section Styles */
+    .levels-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    .category-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .category-title-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .cat-bar {
+      width: 4px;
+      height: 40px;
+      background: var(--cat-color);
+      border-radius: 4px;
+    }
+
+    .category-title-area h2 {
+      margin: 0;
+      color: var(--cat-color);
+      font-size: 24px;
+    }
+
+    .category-title-area p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-small);
+    }
+
+    .category-stats {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .cat-timer {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--cat-color);
+    }
+
+    .cat-progress-bar {
+      width: 150px;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+    }
+
+    .cat-progress-fill {
+      height: 100%;
+      background: var(--cat-color);
+      border-radius: 3px;
+    }
+
+    .cat-progress-text {
+      font-size: 12px;
+      color: var(--cat-color);
+    }
+
+    .category-levels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+    }
+
+    .lesson-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 20px 10px;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--cat-color);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .lesson-num {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 24px;
+      height: 24px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--text-small);
+    }
+
+    .lesson-icon {
+      width: 60px;
+      height: 60px;
+      margin: 15px auto;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.02);
+      border: 2px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--cat-color);
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .lesson-card:hover .lesson-icon {
+      box-shadow: 0 0 15px var(--cat-color);
+      border-color: var(--cat-color);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .lesson-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .lesson-stars {
+      color: rgba(255,255,255,0.1);
+      font-size: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+    }
+
+    /* Active Level Modal/Overlay */
+    .level-play-area {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 42, 68, 0.98);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .level-play-area.active {
+      display: flex;
+    }
+
+    .play-container {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 50px;
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 24px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .close-btn:hover { color: var(--accent); }
+
+    .play-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .timer-display {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: monospace;
+    }
+
+    .play-paragraph {
+      font-size: 24px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      color: var(--text-secondary);
+      font-family: monospace;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+    .play-paragraph span.correct { color: #4ade80; }
+    .play-paragraph span.incorrect { color: #f87171; background: rgba(248, 113, 113, 0.2); border-radius: 3px; }
+    .play-paragraph span.current { border-bottom: 2px solid var(--accent); color: var(--text-primary); }
+
+    .play-input {
+      width: 100%;
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 20px;
+      font-size: 20px;
+      color: var(--text-primary);
+      font-family: monospace;
+      outline: none;
+      transition: var(--transition);
+    }
+    .play-input:focus { border-color: var(--accent); }
+
+    .results-container {
+      display: none;
+      background: var(--bg-secondary);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 0 30px rgba(77, 163, 255, 0.2);
+      text-align: center;
+    }
+
+    .play-results {
+      display: block;
+    }
+
+    .trophy-icon {
+      font-size: 50px;
+      color: #4DA3FF;
+      margin-bottom: 15px;
+    }
+
+    .results-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .results-title i {
+      color: #ffd700;
+    }
+
+    .results-msg {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .results-stars-display {
+      font-size: 40px;
+      color: #ffd700;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+    }
+
+    .results-stars-display i.empty {
+      color: rgba(255,255,255,0.05);
+      filter: none;
+      text-shadow: 0 0 1px rgba(255,255,255,0.1);
+    }
+    
+    .results-stats-row {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 30px;
+    }
+
+    .results-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .results-stat h4 {
+      font-size: 24px;
+      font-family: var(--font-heading);
+      margin-bottom: 5px;
+    }
+
+    .results-stat p {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    .wpm-color { color: #4DA3FF !important; }
+    .acc-color { color: #4DA3FF !important; }
+    .score-color { color: #ffd700 !important; }
+
+    .results-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .btn-next-lesson {
+      background: #4DA3FF;
+      color: #0F2A44;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      flex: 1;
+      transition: var(--transition);
+    }
+    
+    .btn-next-lesson:hover {
+      background: #7ebaff;
+      box-shadow: 0 0 15px rgba(77, 163, 255, 0.4);
+    }
+
+    .btn-retry-lesson {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-secondary);
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      flex: 1;
+      transition: var(--transition);
+    }
+
+    .btn-retry-lesson:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="brand-name">Typing Matrices</div>
+    <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="getstarted.html" class="active">Get Started</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Levels Content -->
+  <div class="container">
+    <div class="levels-header animate-fade">
+      <h1>Typing Jungle</h1>
+      <p>All levels unlocked. Click any lesson to begin. Earn up to 3 stars per level.</p>
+      
+      <div class="global-progress-card">
+        <div class="global-stat">
+          <span class="stat-dot" style="background: #4DA3FF;"></span>
+          <span class="stat-label">PROGRESS</span>
+          <span class="stat-value" style="color: #4DA3FF;">0%</span>
+        </div>
+        <div class="global-stat">
+          <i class="fas fa-star" style="color: #ffd700;"></i>
+          <span class="stat-label">STARS</span>
+          <span class="stat-value" style="color: #ffd700;">0</span>
+        </div>
+        <div class="global-stat">
+          <i class="far fa-check-circle" style="color: #4ade80;"></i>
+          <span class="stat-label">LESSONS</span>
+          <span class="stat-value" style="color: #4ade80;">0/60</span>
+        </div>
+        <div class="global-progress-bar-container">
+          <div class="global-progress-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="levels-grid" id="levels-grid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+
+  <!-- Level Playing Area Modal -->
+  <div class="level-play-area" id="level-play-area">
+    <div class="play-container" id="play-container">
+      <i class="fas fa-times close-btn" id="close-modal-play"></i>
+      
+      <div id="play-view">
+        <div class="play-header">
+          <h2 id="current-level-title">Level 1</h2>
+          <div style="display: flex; gap: 20px; font-size: 18px; align-items: center;">
+            <div id="live-wpm" style="color: var(--text-secondary);">WPM: <span style="color: var(--accent)">0</span></div>
+            <div id="live-acc" style="color: var(--text-secondary);">Acc: <span style="color: var(--accent)">100%</span></div>
+            <div class="timer-display" id="timer-display" style="margin-left: 20px;">00:30</div>
+          </div>
+        </div>
+        
+        <div class="play-paragraph" id="play-paragraph"></div>
+        <input type="text" class="play-input" id="play-input" placeholder="Start typing to begin timer..." autocomplete="off">
+      </div>
+    </div>
+
+    <div class="results-container" id="results-container">
+      <i class="fas fa-times close-btn" id="close-modal-results"></i>
+      <div class="play-results active" id="play-results">
+        <div class="trophy-icon"><i class="fas fa-trophy"></i></div>
+        <div class="results-title"><i class="fas fa-star" id="res-title-icon"></i> <span id="res-title-msg">Great Job!</span></div>
+        <div class="results-msg" id="res-desc-msg">Excellent! 90%+ accuracy. Keep pushing to reach perfection!</div>
+        
+        <div class="results-stars-display" id="res-stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star empty"></i>
+        </div>
+
+        <div class="results-stats-row">
+          <div class="results-stat">
+            <h4 id="res-wpm" class="wpm-color">28</h4>
+            <p>WPM</p>
+          </div>
+          <div class="results-stat">
+            <h4 id="res-acc" class="acc-color">94%</h4>
+            <p>Accuracy</p>
+          </div>
+          <div class="results-stat">
+            <h4 id="res-score" class="score-color">26</h4>
+            <p>Score</p>
+          </div>
+        </div>
+
+        <div class="results-buttons">
+          <button class="btn-next-lesson" id="next-level-btn">NEXT LESSON &rarr;</button>
+          <button class="btn-retry-lesson" id="retry-level-btn">RETRY</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h4>Typing Matrices &copy; 2026</h4>
+          <p>Improve your typing speed & accuracy</p>
+          <p>Practice daily and increase your WPM!</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="getstarted.html">Get Started</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Typing Tools</h4>
+          <ul>
+            <li><a href="#">Speed Calculator</a></li>
+            <li><a href="#">Accuracy Checker</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <small>Typing Matrices. Designed for Typists.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/levels.js"></script>
+</body>
+</html>

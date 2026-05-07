@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Matrices | Speed Typing Test</title>
+  <meta name="description" content="Master your Typing Speed. Learn, track, and improve with Typing Matrices.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Home specific styles */
+    /* Hero Slider */
+    .hero {
+      position: relative;
+      height: 60vh;
+      min-height: 450px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    
+    .section {
+      padding: 50px 0;
+    }
+
+    .hero-slider {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    .hero-slider img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+      top: 0; left: 0;
+    }
+
+    .hero-slider img.active {
+      opacity: 0.4;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to bottom, rgba(15, 42, 68, 0.3), var(--bg-primary));
+      z-index: -1;
+    }
+
+    .hero-content {
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .hero-buttons {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    /* Performance Tracker Carousel */
+    .performance-section {
+      background: var(--bg-secondary);
+      overflow: hidden;
+    }
+    
+    .marquee-container {
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding: 40px 0;
+    }
+
+    .marquee-row {
+      display: flex;
+      width: max-content;
+      gap: 30px;
+    }
+
+    .marquee-left {
+      animation: marqueeLeft 30s linear infinite;
+    }
+    .marquee-left:hover {
+      animation-play-state: paused;
+    }
+
+    .marquee-right {
+      animation: marqueeRight 30s linear infinite;
+    }
+    .marquee-right:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes marqueeLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes marqueeRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    
+    .tracker-card {
+      min-width: 300px;
+      scroll-snap-align: center;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .tracker-card i {
+      font-size: 40px;
+      color: var(--accent);
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    
+    .tracker-card:hover i {
+      transform: scale(1.1);
+    }
+
+    .tracker-card.active-glow {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(77, 163, 255, 0.4);
+      transform: scale(1.05);
+    }
+
+    /* Mini Typing Test */
+    .test-section {
+      position: relative;
+    }
+    
+    .typing-box {
+      background: var(--bg-secondary);
+      border-radius: 20px;
+      padding: 40px;
+      margin-top: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .paragraph-display {
+      font-size: 24px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      color: var(--text-secondary);
+      font-family: monospace;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+
+    .paragraph-display span.correct { color: #4ade80; }
+    .paragraph-display span.incorrect { color: #f87171; background: rgba(248, 113, 113, 0.2); border-radius: 3px; }
+    .paragraph-display span.current { border-bottom: 2px solid var(--accent); color: var(--text-primary); }
+
+    .typing-input {
+      width: 100%;
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 20px;
+      font-size: 20px;
+      color: var(--text-primary);
+      font-family: monospace;
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .typing-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(77, 163, 255, 0.2);
+    }
+
+    /* Hero Section Update */
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .hero-subtitle {
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+
+    .hero-btn-primary {
+      background: #4DA3FF;
+      color: #0F2A44;
+      font-weight: 600;
+      padding: 15px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+    }
+
+    .hero-btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(5px);
+      padding: 15px 40px;
+      border-radius: 30px;
+      font-size: 18px;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 50px;
+    }
+
+    /* Tracker Cards Updates */
+    .tracker-card {
+      width: 300px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .tracker-card-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tracker-card-icon i {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .tracker-card h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: var(--text-primary);
+    }
+    
+    .tracker-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .tracker-card:hover {
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-5px);
+    }
+
+    /* Mini Typing Test Updates */
+    .stats-top {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-bottom: 30px;
+    }
+
+    .stat-top-item {
+      text-align: center;
+    }
+
+    .stat-top-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: #4DA3FF;
+    }
+
+    .stat-top-label {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .typing-box-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .typing-progress-line {
+      height: 6px;
+      background: #4DA3FF;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .typing-box {
+      background: rgba(255,255,255,0.02);
+      border-radius: 12px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      cursor: text;
+    }
+
+    .paragraph-display {
+      font-size: 20px;
+      line-height: 2;
+      color: var(--text-secondary);
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: 1px;
+      user-select: none;
+      text-align: left;
+    }
+
+    .paragraph-display span.correct { color: #fff; }
+    .paragraph-display span.incorrect { color: #f87171; }
+    .paragraph-display span.current { 
+      border-left: 2px solid #4DA3FF; 
+      color: #fff;
+    }
+
+    .typing-input {
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      cursor: text;
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .btn-retry {
+      background: #E5E7EB;
+      color: #0F2A44;
+      font-weight: 600;
+      padding: 10px 30px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 40px; }
+      .section-title { font-size: 32px; }
+      .stats-top { gap: 30px; }
+      .stat-top-value { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="brand-name">Typing Matrices</div>
+    <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="getstarted.html">Get Started</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Section A: Hero Slider -->
+  <section class="hero">
+    <div class="hero-slider" id="hero-slider">
+      <!-- Images injected by JS -->
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content animate-fade">
+      <h1 class="hero-title">MASTER YOUR TYPING SPEED</h1>
+      <p class="hero-subtitle">Learn. Track. Improve. Dominate.</p>
+      <div class="hero-buttons">
+        <a href="getstarted.html" class="btn hero-btn-primary">Get Started <i class="fas fa-arrow-right"></i></a>
+        <a href="about.html" class="btn btn-outline hero-btn-secondary">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section B: Performance Tracker -->
+  <section class="section performance-section">
+    <div class="text-center">
+      <h2 class="section-title">Real-Time Performance Tracker</h2>
+      <p class="section-subtitle">Every keystroke counts. Track 10 key metrics as you type.</p>
+    </div>
+    <div class="marquee-container" id="marquee-container">
+      <div class="marquee-row marquee-left" id="marquee-top">
+        <!-- Cards injected by JS -->
+      </div>
+      <div class="marquee-row marquee-right" id="marquee-bottom">
+        <!-- Cards injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Section C: Mini Typing Test -->
+  <section class="section test-section container">
+    <div class="text-center">
+      <h2 class="section-title">Try It Now</h2>
+      <p class="section-subtitle">You have <span style="color: #4DA3FF; font-weight: bold;">30 seconds</span> — type as fast and accurately as you can!</p>
+    </div>
+    
+    <div class="stats-top">
+      <div class="stat-top-item">
+        <div class="stat-top-value" id="wpm-display">0</div>
+        <div class="stat-top-label">WPM</div>
+      </div>
+      <div class="stat-top-item">
+        <div class="stat-top-value" id="accuracy-display">100%</div>
+        <div class="stat-top-label">Accuracy</div>
+      </div>
+      <div class="stat-top-item">
+        <div class="stat-top-value" id="mini-timer">30s</div>
+        <div class="stat-top-label">Time Left</div>
+      </div>
+    </div>
+
+    <div class="typing-box-wrapper">
+      <div class="typing-progress-line"></div>
+      <div class="typing-box">
+        <div class="paragraph-display" id="paragraph-display"></div>
+        <input type="text" class="typing-input" id="typing-input" placeholder="" autocomplete="off">
+      </div>
+    </div>
+    
+    <div class="controls">
+      <button class="btn btn-retry" id="refresh-btn"><i class="fas fa-undo"></i> RETRY</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h4>Typing Matrices &copy; 2026</h4>
+          <p>Improve your typing speed & accuracy</p>
+          <p>Practice daily and increase your WPM!</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="getstarted.html">Get Started</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Typing Tools</h4>
+          <ul>
+            <li><a href="#">Speed Calculator</a></li>
+            <li><a href="#">Accuracy Checker</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <small>Typing Matrices. Designed for Typists.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

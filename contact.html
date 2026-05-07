@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Typing Matrices</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Contact Page Specific Styles */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      margin-top: 50px;
+    }
+
+    .contact-form-container {
+      background: var(--bg-secondary);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      font-size: 16px;
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    select.form-control {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .form-error {
+      color: #f87171;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .form-success {
+      display: none;
+      background: rgba(74, 222, 128, 0.2);
+      border: 1px solid #4ade80;
+      color: #4ade80;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .info-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .info-card i {
+      font-size: 30px;
+      color: var(--accent);
+      background: rgba(77, 163, 255, 0.1);
+      padding: 20px;
+      border-radius: 50%;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="brand-name">Typing Matrices</div>
+    <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="getstarted.html">Get Started</a>
+      <a href="contact.html" class="active">Contact Us</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <section class="section container" style="margin-top: 50px;">
+    <div class="text-center animate-fade">
+      <h1 style="font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 700; margin-bottom: 20px;">
+        Contact Us</h1>
+      <p style="font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Have questions,
+        feedback, or just want to say hi? We'd love to hear from you.</p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Contact Form -->
+      <div class="contact-form-container animate-fade">
+        <div class="form-success" id="form-success">
+          <i class="fas fa-check-circle"></i> ✅ Your message has been sent successfully!
+        </div>
+        <form id="contact-form">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" class="form-control" placeholder="John Doe">
+            <div class="form-error" id="error-name">Please enter your name</div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" placeholder="john@example.com">
+            <div class="form-error" id="error-email">Please enter a valid email address</div>
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" class="form-control" style="background-color: var(--bg-primary);">
+              <option value="general">General Inquiry</option>
+              <option value="bug">Bug Report</option>
+              <option value="feedback">Feedback</option>
+              <option value="partnership">Partnership</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" class="form-control" placeholder="Write your message here..."></textarea>
+            <div class="form-error" id="error-message">Please enter a message</div>
+          </div>
+          <button type="submit" class="btn" style="width: 100%" id="submit-btn">Send Message <i
+              class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="contact-info animate-fade" style="animation-delay: 0.2s">
+        <h2>Contact Information</h2>
+        <p>Feel free to reach out to us directly through any of the following channels.</p>
+
+        <div class="glass-card info-card">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <h4>Support Email</h4>
+            <p>support@typingmatrices.com</p>
+          </div>
+        </div>
+
+        <div class="glass-card info-card">
+          <i class="fas fa-phone"></i>
+          <div>
+            <h4>Phone</h4>
+            <p>+91-9876543210</p>
+          </div>
+        </div>
+
+        <div class="glass-card info-card">
+          <i class="fas fa-user-circle"></i>
+          <div>
+            <h4>Team Contacts</h4>
+            <p>jasmeen.kaur6534@gmail.com<br>khushi01173@gmail.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h4>Typing Matrices &copy; 2026</h4>
+          <p>Improve your typing speed & accuracy</p>
+          <p>Practice daily and increase your WPM!</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="getstarted.html">Get Started</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Typing Tools</h4>
+          <ul>
+            <li><a href="#">Speed Calculator</a></li>
+            <li><a href="#">Accuracy Checker</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <small>Typing Matrices. Designed for Typists.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+
+</html>
